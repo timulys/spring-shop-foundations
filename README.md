@@ -16,6 +16,7 @@
 | 10강 · 요청 검증 | [lesson-10](lesson-10) | 장바구니 변경·입력 검증·공통 오류 응답 |
 | 11강 · 장바구니 관계 | [lesson-11](lesson-11) | 항목 저장·재시작 후 수량 유지·삭제 범위 확인 |
 | 12강 · 주문 정보 보관 | [lesson-12](lesson-12) | 상품명·가격 스냅샷·주문 생성·이전 주문 금액 유지 |
+| 13강 · 트랜잭션 | [lesson-13](lesson-13) | 주문 저장과 장바구니 비우기·커밋·실패 롤백 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
