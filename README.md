@@ -17,6 +17,7 @@
 | 11강 · 장바구니 관계 | [lesson-11](lesson-11) | 항목 저장·재시작 후 수량 유지·삭제 범위 확인 |
 | 12강 · 주문 정보 보관 | [lesson-12](lesson-12) | 상품명·가격 스냅샷·주문 생성·이전 주문 금액 유지 |
 | 13강 · 트랜잭션 | [lesson-13](lesson-13) | 주문 저장과 장바구니 비우기·커밋·실패 롤백 |
+| 14강 · 변경 감지와 취소 | [lesson-14](lesson-14) | 관리·분리 상태 비교·취소 상태 저장·flush 후 롤백 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
