@@ -14,6 +14,7 @@
 | 8강 · JPA 매핑 | [lesson-08](lesson-08) | Flyway로 테이블 준비·엔티티 매핑 검증 |
 | 9강 · Repository | [lesson-09](lesson-09) | DB 상품 조회·저장·변경·테스트 롤백 |
 | 10강 · 요청 검증 | [lesson-10](lesson-10) | 장바구니 변경·입력 검증·공통 오류 응답 |
+| 11강 · 장바구니 관계 | [lesson-11](lesson-11) | 항목 저장·재시작 후 수량 유지·삭제 범위 확인 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
