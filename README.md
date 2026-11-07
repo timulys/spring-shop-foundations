@@ -24,6 +24,8 @@
 | 18강 · 화면 이벤트와 비동기 요청 | [lesson-18](lesson-18) | 버튼 이벤트·공통 API 호출·200·400·404 표시·오류 후 복구 |
 | 19강 · 상품 검색과 상세 화면 | [lesson-19](lesson-19) | 카테고리·검색어 조건·상품 카드·상세 조회·빈 결과와 초기화 |
 
+| 20강 · 장바구니 화면 | [lesson-20](lesson-20) | 담기·수량 변경·삭제·서버 합계 표시·잘못된 입력 복구 |
+
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
 JDK 21을 설치하고 원하는 강의 폴더의 build.gradle을 IntelliJ에서 엽니다. Project SDK와 Gradle JVM을 21로 지정한 뒤 ShopApplication을 실행합니다. 터미널 실행은 강의 폴더에서 ./gradlew bootRun입니다. Gradle을 별도 설치할 필요는 없습니다.

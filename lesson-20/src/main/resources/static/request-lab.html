@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>작업실 상점 · API 요청 실습</title>
+  <link rel="stylesheet" href="/shop.css">
+  <link rel="stylesheet" href="/request-lab.css">
+  <script type="module" src="/request-lab.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">작업실 <span>상점</span></a>
+    <span class="header-note">API 요청 실습</span>
+  </header>
+  <main>
+    <section class="lab-intro">
+      <p class="eyebrow">18강 · 화면과 서버 연결</p>
+      <h1>버튼을 누르면<br>어떤 응답이 올까요?</h1>
+      <p>같은 호출 함수로 성공 응답과 오류 응답을 받아 보세요.</p>
+    </section>
+    <section class="request-panel" aria-labelledby="request-title" aria-busy="false">
+      <h2 id="request-title">요청 선택</h2>
+      <div class="request-buttons">
+        <button type="button" data-path="/api/products">상품 목록 조회</button>
+        <button type="button" data-path="/api/products?maxPrice=-1">잘못된 가격 요청 · 400</button>
+        <button type="button" data-path="/api/products/MISSING">없는 상품 조회 · 404</button>
+      </div>
+      <p id="request-status" role="status" aria-live="polite">요청할 버튼을 선택해 주세요.</p>
+      <h2 class="response-heading">서버 응답</h2>
+      <pre id="response-body" aria-label="서버 응답 본문">아직 요청하지 않았습니다.</pre>
+    </section>
+  </main>
+  <footer>작업실 상점 <a href="/">상품 목록으로 돌아가기</a></footer>
+</body>
+</html>
