@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>작업실 상점 · 상품 목록</title>
+  <link rel="stylesheet" href="/shop.css">
+  <script type="module" src="/shop.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">작업실 <span>상점</span></a>
+    <span class="header-note">책상 위에서 매일 쓰는 도구</span>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">작은 도구, 편안한 작업</p>
+      <h1 id="page-title">나의 책상에<br>필요한 것들.</h1>
+      <p class="intro-copy">키보드, 마우스, 그리고 생각을 적을 노트.<br>매일의 작업을 함께할 상품을 살펴보세요.</p>
+    </section>
+    <section class="catalog" aria-labelledby="catalog-title" aria-busy="false">
+      <div class="catalog-heading">
+        <h2 id="catalog-title">전체 상품</h2>
+        <button id="reload" type="button">목록 새로고침 <span aria-hidden="true">↻</span></button>
+      </div>
+      <p id="status" role="status" aria-live="polite">상품을 불러오는 중입니다.</p>
+      <ul id="products" class="product-grid"></ul>
+    </section>
+  </main>
+  <footer>작업실 상점 <span>상품 목록</span></footer>
+  <template id="product-template">
+    <li>
+      <article class="product">
+        <div class="product-visual" aria-hidden="true"><span class="product-mark"></span></div>
+        <div class="product-info">
+          <p class="product-code"></p>
+          <h3 class="product-name"></h3>
+          <p class="product-price"></p>
+        </div>
+      </article>
+    </li>
+  </template>
+</body>
+</html>
