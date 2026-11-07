@@ -22,6 +22,7 @@
 | 16강 · 연관 데이터 조회 | [lesson-16](lesson-16) | 목록 DTO 쿼리·상세 fetch join·SQL과 응답 비교 |
 | 17강 · API 통합 테스트 | [lesson-17](lesson-17) | 실제 HTTP 요청·응답과 DB 상태·실패 롤백·실행 순서 독립성 |
 | 18강 · 화면 이벤트와 비동기 요청 | [lesson-18](lesson-18) | 버튼 이벤트·공통 API 호출·200·400·404 표시·오류 후 복구 |
+| 19강 · 상품 검색과 상세 화면 | [lesson-19](lesson-19) | 카테고리·검색어 조건·상품 카드·상세 조회·빈 결과와 초기화 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
