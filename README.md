@@ -20,6 +20,7 @@
 | 14강 · 변경 감지와 취소 | [lesson-14](lesson-14) | 관리·분리 상태 비교·취소 상태 저장·flush 후 롤백 |
 | 15강 · 주문 목록과 페이지 | [lesson-15](lesson-15) | 최신순 정렬·페이지 응답·범위 검증·삽입 후 경계 변화 |
 | 16강 · 연관 데이터 조회 | [lesson-16](lesson-16) | 목록 DTO 쿼리·상세 fetch join·SQL과 응답 비교 |
+| 17강 · API 통합 테스트 | [lesson-17](lesson-17) | 실제 HTTP 요청·응답과 DB 상태·실패 롤백·실행 순서 독립성 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
@@ -30,3 +31,5 @@ JDK 21을 설치하고 원하는 강의 폴더의 build.gradle을 IntelliJ에서
 1~8강의 상품 API는 메모리 목록을 사용합니다. 6강에서 PostgreSQL을 실행하고, 7강에서 SQL을 익힌 뒤, 8강에서 엔티티를 매핑합니다. 9강부터 상품 API가 실제 DB를 조회합니다. 10강의 장바구니 수량은 메모리에 보관하며 DB 저장은 11강에서 추가합니다. 2강 본문은 세 필드이고, 3강부터 2강 카테고리 과제 정답을 반영합니다. 자바 코드 수정 후 저장·재실행합니다. 자세한 조건은 각 강의 README에 있습니다.
 
 6강부터 Docker 실행 환경과 PostgreSQL 18.4를 사용합니다. 각 강의 폴더에서 `docker compose up -d --wait`로 DB를 먼저 시작합니다. DB 포트 15432와 앱 포트 8080이 겹치지 않도록 이전 강의의 앱과 컨테이너를 종료해 주세요. 강의별 `README.md`에 실행 순서, 실습 요청, 예상 결과와 과제를 정리했습니다.
+
+17강부터 통합 테스트용 DB를 별도로 사용합니다. `docker compose --profile test up -d --wait db test-db`로 일반 DB와 테스트 DB를 준비합니다. 테스트는 `shop_test`에서만 데이터를 정리하며, 기본 포트는 15433입니다.
