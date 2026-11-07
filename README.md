@@ -19,6 +19,7 @@
 | 13강 · 트랜잭션 | [lesson-13](lesson-13) | 주문 저장과 장바구니 비우기·커밋·실패 롤백 |
 | 14강 · 변경 감지와 취소 | [lesson-14](lesson-14) | 관리·분리 상태 비교·취소 상태 저장·flush 후 롤백 |
 | 15강 · 주문 목록과 페이지 | [lesson-15](lesson-15) | 최신순 정렬·페이지 응답·범위 검증·삽입 후 경계 변화 |
+| 16강 · 연관 데이터 조회 | [lesson-16](lesson-16) | 목록 DTO 쿼리·상세 fetch join·SQL과 응답 비교 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
