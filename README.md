@@ -24,6 +24,11 @@
 | 18강 · 화면 이벤트와 비동기 요청 | [lesson-18](lesson-18) | 버튼 이벤트·공통 API 호출·200·400·404 표시·오류 후 복구 |
 | 19강 · 상품 검색과 상세 화면 | [lesson-19](lesson-19) | 카테고리·검색어 조건·상품 카드·상세 조회·빈 결과와 초기화 |
 | 20강 · 장바구니 화면 | [lesson-20](lesson-20) | 담기·수량 변경·삭제·서버 합계 표시·잘못된 입력 복구 |
+| 21강 · 주문 확인과 완료 | [lesson-21](lesson-21) | 서버 금액 확인·변경 감지·70000원 주문 완료 |
+| 22강 · 주문 내역과 취소 화면 | [lesson-22](lesson-22) | 목록·상세·페이지 이동·취소 뒤 재조회 |
+| 23강 · 입력 보존과 화면 복구 | [lesson-23](lesson-23) | 실패 뒤 입력 보존·요청 제한 시간·주문 확인 무효화 |
+| 24강 · 도메인 용어와 패키지 | [lesson-24](lesson-24) | catalog·cart·order·common으로 코드와 테스트 정리 |
+| 25강 · Money 값 객체 | [lesson-25](lesson-25) | 불변 금액 계산·값 비교·음수와 범위 초과 검사 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
@@ -36,3 +41,7 @@ JDK 21을 설치하고 원하는 강의 폴더의 build.gradle을 IntelliJ에서
 6강부터 Docker 실행 환경과 PostgreSQL 18.4를 사용합니다. 각 강의 폴더에서 `docker compose up -d --wait`로 DB를 먼저 시작합니다. DB 포트 15432와 앱 포트 8080이 겹치지 않도록 이전 강의의 앱과 컨테이너를 종료해 주세요. 강의별 `README.md`에 실행 순서, 실습 요청, 예상 결과와 과제를 정리했습니다.
 
 17강부터 통합 테스트용 DB를 별도로 사용합니다. `docker compose --profile test up -d --wait db test-db`로 일반 DB와 테스트 DB를 준비합니다. 테스트는 `shop_test`에서만 데이터를 정리하며, 기본 포트는 15433입니다.
+
+23강부터 요청 함수의 JavaScript 테스트도 제공합니다. Node.js를 설치한 환경에서 `npm run test:ui`로 실행합니다. 브라우저에서 상점을 사용하는 데는 별도 Node 실행 과정이 없습니다.
+
+24강부터 서버 코드와 테스트를 기능별 패키지로 정리합니다. 이전 강의의 코드는 해당 강의에서 설명한 구조를 유지합니다.

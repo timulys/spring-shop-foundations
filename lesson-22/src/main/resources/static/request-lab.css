@@ -1,0 +1,11 @@
+.lab-intro { padding: 44px 0 32px; }
+.lab-intro h1 { font-size: clamp(34px, 4vw, 48px); letter-spacing: -2px; }
+.lab-intro p:last-child { color: var(--muted); font-size: 18px; line-height: 1.6; }
+.request-panel { border-top: 2px solid var(--ink); padding-top: 24px; }
+.request-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
+.request-buttons button { padding: 12px 18px; border: 1px solid var(--line); background: var(--wash); border-radius: 6px; font-size: 17px; }
+#request-status { min-height: 30px; font-size: 18px; line-height: 1.6; }
+#request-status[data-state="error"] { color: #a12e37; }
+.response-heading { margin-top: 26px; font-size: 20px; }
+#response-body { min-height: 140px; padding: 20px; background: #f4f7fa; border: 1px solid var(--line); border-radius: 6px; white-space: pre-wrap; overflow-wrap: anywhere; font: 17px/1.65 ui-monospace, SFMono-Regular, monospace; }
+footer a { color: var(--blue); }

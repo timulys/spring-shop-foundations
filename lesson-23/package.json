@@ -1,0 +1,1 @@
+{"private":true,"type":"module","scripts":{"test:ui":"node --test src/test/js/*.test.mjs"}}
