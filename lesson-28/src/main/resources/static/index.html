@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>작업실 상점</title>
+  <link rel="stylesheet" href="/shop.css">
+  <template id="cart-item-template">
+    <li class="cart-item">
+      <div class="cart-product"><span class="cart-code"></span><h3 class="cart-name"></h3>
+        <span>단가 <strong class="cart-unit-price"></strong></span></div>
+      <form class="quantity-form" novalidate>
+        <label>수량 <input class="quantity-input" type="number" min="1" max="99" step="1" required></label>
+        <button class="change-button" type="submit">변경</button>
+      </form>
+      <div class="line-total-label">금액 <strong class="cart-line-total"></strong></div>
+      <button class="remove-button" type="button">삭제</button>
+    </li>
+  </template>
+  <script type="module" src="/shop.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">작업실 <span>상점</span></a>
+    <span class="header-note">책상 위에서 매일 쓰는 도구</span>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">작은 도구, 편안한 작업</p>
+      <h1 id="page-title">나의 책상에<br>필요한 것들.</h1>
+      <p class="intro-copy">키보드, 마우스, 그리고 생각을 적을 노트.<br>매일의 작업을 함께할 상품을 살펴보세요.</p>
+    </section>
+    <section class="catalog" aria-labelledby="catalog-title" aria-busy="false">
+      <div class="catalog-heading">
+        <h2 id="catalog-title">상품 찾기</h2>
+        <button id="reset-search" type="button">조건 초기화</button>
+      </div>
+      <form id="search-form" class="search-form">
+        <label>카테고리
+          <select id="category" name="category">
+            <option value="">전체</option>
+            <option value="주변기기">주변기기</option>
+            <option value="문구">문구</option>
+          </select>
+        </label>
+        <label class="keyword-label">상품명
+          <input id="keyword" name="q" type="search" maxlength="40" placeholder="예: 키보드">
+        </label>
+        <button type="submit" class="search-button">검색</button>
+      </form>
+      <p id="status" role="status" aria-live="polite">상품을 불러오는 중입니다.</p>
+      <ul id="products" class="product-grid"></ul>
+      <section id="product-detail" class="product-detail" aria-labelledby="detail-title" hidden>
+        <div><p class="eyebrow">선택한 상품</p><h2 id="detail-title" class="detail-name"></h2></div>
+        <dl>
+          <div><dt>상품 코드</dt><dd class="detail-code"></dd></div>
+          <div><dt>카테고리</dt><dd class="detail-category"></dd></div>
+          <div><dt>가격</dt><dd class="detail-price"></dd></div>
+        </dl>
+      </section>
+    </section>
+    <section class="cart-panel" aria-labelledby="cart-title">
+      <div class="section-heading"><h2 id="cart-title">장바구니</h2>
+        <button id="reload-cart" type="button">장바구니 새로고침</button></div>
+      <p id="cart-status" class="cart-status" role="status" aria-live="polite"></p>
+      <p id="cart-empty" class="cart-empty">장바구니가 비어 있습니다. 상품을 담아 보세요.</p>
+      <ul id="cart-items" class="cart-list"></ul>
+      <div class="cart-summary"><span>총 수량 <strong id="cart-quantity">—</strong>개</span>
+        <span>상품 합계 <strong id="cart-subtotal">—</strong></span></div>
+      <p class="cart-note">상품 합계는 서버가 계산한 장바구니 금액입니다. 주문 할인은 주문 확인 단계에서 적용합니다.</p>
+    </section>
+    <section class="checkout-panel" aria-labelledby="checkout-title">
+      <div class="section-heading"><h2 id="checkout-title">주문 확인</h2>
+      <button id="preview-order" type="button">주문 내용 확인</button></div>
+      <p id="cart-draft-note" class="draft-note" role="status" hidden>아직 적용하지 않은 수량이 있습니다. 수량을 적용하거나 장바구니를 새로고침한 뒤 주문을 확인해 주세요.</p>
+      <p class="simulation-note">학습용 모의 결제입니다. 실제 금액은 청구되지 않습니다.</p>
+      <p id="checkout-status" role="status" aria-live="polite"></p>
+      <div id="checkout-summary" hidden>
+        <ul id="checkout-items"></ul>
+        <dl class="checkout-amounts">
+          <div><dt>상품 합계</dt><dd data-checkout="subtotal"></dd></div>
+          <div><dt>할인</dt><dd data-checkout="discount"></dd></div>
+          <div><dt>배송비</dt><dd data-checkout="shippingFee"></dd></div>
+          <div class="checkout-total"><dt>최종 금액</dt><dd data-checkout="total"></dd></div>
+        </dl>
+      </div>
+      <button id="confirm-order" class="primary-button" type="button" disabled>확인한 금액으로 모의 결제</button>
+      <div id="order-completion" class="order-completion" hidden>
+        <h3>주문이 완료되었습니다</h3>
+        <p>주문 번호 <strong id="completed-order-id"></strong> · 금액 <strong id="completed-total"></strong></p>
+        <p>모의 결제 · 실제 청구 없음</p>
+      </div>
+    </section>
+    <section class="orders-panel" aria-labelledby="orders-title">
+      <div class="section-heading"><h2 id="orders-title">주문 내역</h2>
+        <button id="reload-orders" type="button">주문 내역 새로고침</button></div>
+      <p id="orders-status" role="status" aria-live="polite"></p>
+      <p class="cart-note">주문 시각은 브라우저의 시간대를 기준으로 표시합니다.</p>
+      <p id="orders-empty" hidden>아직 주문 내역이 없습니다.</p>
+      <ul id="orders" class="order-list"></ul>
+      <div class="order-pagination">
+        <button id="orders-previous" type="button" disabled>이전</button>
+        <span id="orders-page">—</span>
+        <button id="orders-next" type="button" disabled>다음</button>
+      </div>
+      <section id="order-detail" class="order-detail" aria-labelledby="order-detail-title" hidden>
+        <h3 id="order-detail-title">주문 <span id="selected-order-id"></span> 상세</h3>
+        <p><strong id="selected-order-status"></strong> · <time id="selected-order-date"></time></p>
+        <ul id="ordered-items"></ul>
+        <dl class="checkout-amounts">
+          <div><dt>상품 합계</dt><dd data-order="subtotal"></dd></div>
+          <div><dt>할인</dt><dd data-order="discount"></dd></div>
+          <div><dt>배송비</dt><dd data-order="shippingFee"></dd></div>
+          <div class="checkout-total"><dt>주문 금액</dt><dd data-order="total"></dd></div>
+        </dl>
+        <p id="order-cancel-note"></p>
+        <p class="simulation-note">학습용 모의 주문 · 실제 청구와 환불은 없습니다.</p>
+        <button id="cancel-order" type="button" disabled>이 주문 취소</button>
+      </section>
+    </section>
+  </main>
+  <footer>작업실 상점 <span>상품 목록</span></footer>
+  <template id="product-template">
+    <li>
+      <article class="product">
+        <div class="product-visual" aria-hidden="true"><span class="product-mark"></span></div>
+        <div class="product-info">
+          <p class="product-code"></p>
+          <h3 class="product-name"></h3>
+          <p class="product-price"></p>
+          <p class="product-category"></p>
+          <div class="product-actions"><button type="button" class="detail-button">상세 보기 →</button>
+            <button type="button" class="add-button">담기 +</button></div>
+        </div>
+      </article>
+    </li>
+  </template>
+</body>
+</html>

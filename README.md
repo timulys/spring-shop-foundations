@@ -31,6 +31,7 @@
 | 25강 · Money 값 객체 | [lesson-25](lesson-25) | 불변 금액 계산·값 비교·음수와 범위 초과 검사 |
 | 26강 · 주문 애그리거트 | [lesson-26](lesson-26) | 도메인 내부 레이어·목록 보호·주문 상태 전환 검사 |
 | 27강 · 할인 정책 분리 | [lesson-27](lesson-27) | 같은 주문 흐름에서 기본 할인 70000원·할인 없음 75000원 |
+| 28강 · 상품 조회 계약 | [lesson-28](lesson-28) | DB·가짜 구현 교체·같은 70000원 주문·없는 상품 거부 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
