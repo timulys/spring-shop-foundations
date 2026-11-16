@@ -32,8 +32,8 @@
 | 26강 · 주문 애그리거트 | [lesson-26](lesson-26) | 도메인 내부 레이어·목록 보호·주문 상태 전환 검사 |
 | 27강 · 할인 정책 분리 | [lesson-27](lesson-27) | 같은 주문 흐름에서 기본 할인 70000원·할인 없음 75000원 |
 | 28강 · 상품 조회 계약 | [lesson-28](lesson-28) | DB·가짜 구현 교체·같은 70000원 주문·없는 상품 거부 |
-
 | 29강 · 리팩터링 전후 비교 | [lesson-29](lesson-29) | 같은 주문·취소 결과 보존·10% 할인 정책 과제 |
+| 30강 · 회원 모델과 가입 입력 | [lesson-30](lesson-30) | 아이디 정규화·서로 다른 회원 번호·DB 중복 거부 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
