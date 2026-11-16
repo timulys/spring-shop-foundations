@@ -33,6 +33,8 @@
 | 27강 · 할인 정책 분리 | [lesson-27](lesson-27) | 같은 주문 흐름에서 기본 할인 70000원·할인 없음 75000원 |
 | 28강 · 상품 조회 계약 | [lesson-28](lesson-28) | DB·가짜 구현 교체·같은 70000원 주문·없는 상품 거부 |
 
+| 29강 · 리팩터링 전후 비교 | [lesson-29](lesson-29) | 같은 주문·취소 결과 보존·10% 할인 정책 과제 |
+
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
 JDK 21을 설치하고 원하는 강의 폴더의 build.gradle을 IntelliJ에서 엽니다. Project SDK와 Gradle JVM을 21로 지정한 뒤 ShopApplication을 실행합니다. 터미널 실행은 강의 폴더에서 ./gradlew bootRun입니다. Gradle을 별도 설치할 필요는 없습니다.
