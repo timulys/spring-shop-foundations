@@ -46,6 +46,7 @@
 | 40강 · HTTP 상품 묶음 조회 | [lesson-40](lesson-40) | 원격 상품 값, 응답 검사, 짧은 쓰기 트랜잭션, V8 전환 |
 | 41강 · 프록시 경로 통합 | [lesson-41](lesson-41) | 상품·주문 직접 경로, 내부 API 차단, 세션 유지 |
 | 42강 · 상품 지연과 실패 | [lesson-42](lesson-42) | 2.5초 전체 예산, 제한된 조회 재시도, 과거 주문 유지 |
+| 43강 · 중복 주문 방지 | [lesson-43](lesson-43) | 영속 요청 키, 동시성 검사, 재시작 뒤 재전송 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
