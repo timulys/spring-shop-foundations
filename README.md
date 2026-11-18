@@ -48,6 +48,7 @@
 | 42강 · 상품 지연과 실패 | [lesson-42](lesson-42) | 2.5초 전체 예산, 제한된 조회 재시도, 과거 주문 유지 |
 | 43강 · 중복 주문 방지 | [lesson-43](lesson-43) | 영속 요청 키, 동시성 검사, 재시작 뒤 재전송 |
 | 44강 · 서비스 간 오류 추적 | [lesson-44](lesson-44) | 요청 ID 전달, JSON 로그, 상품 DB 장애 추적 |
+| 45강 · 전체 구매 흐름 점검 | [lesson-45](lesson-45) | 정상·실패·동시 요청·DB 갱신의 결과 비교 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
