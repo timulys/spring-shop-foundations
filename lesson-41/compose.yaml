@@ -1,0 +1,120 @@
+name: spring-shop-lesson41
+
+services:
+  web:
+    image: spring-shop-web:lesson41
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    ports:
+      - "127.0.0.1:${WEB_PORT:-8080}:80"
+    depends_on:
+      order:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  order:
+    image: spring-shop-order:lesson41
+    build: ./order-service
+    environment:
+      CATALOG_BASE_URL: http://catalog:8080
+      DB_URL: jdbc:postgresql://order-db:5432/shop
+      DB_USER: shop
+      DB_PASSWORD: ${ORDER_DB_PASSWORD:?Copy .env.example to .env}
+    depends_on:
+      order-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "--max-time", "3", "http://127.0.0.1:8080/actuator/health/readiness"]
+      interval: 5s
+      timeout: 4s
+      retries: 3
+      start_period: 30s
+
+  catalog:
+    image: spring-shop-catalog:lesson41
+    build: ./catalog-service
+    environment:
+      SERVER_PORT: 8080
+      DB_URL: jdbc:postgresql://catalog-db:5432/catalog
+      DB_USER: catalog
+      DB_PASSWORD: ${CATALOG_DB_PASSWORD:?Copy .env.example to .env}
+    depends_on:
+      catalog-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "--max-time", "3", "http://127.0.0.1:8080/actuator/health/readiness"]
+      interval: 5s
+      timeout: 4s
+      retries: 3
+      start_period: 30s
+
+  order-db:
+    image: postgres:18.4
+    environment:
+      POSTGRES_DB: shop
+      POSTGRES_USER: shop
+      POSTGRES_PASSWORD: ${ORDER_DB_PASSWORD:?Copy .env.example to .env}
+    volumes:
+      - order_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shop -d shop"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  catalog-db:
+    image: postgres:18.4
+    environment:
+      POSTGRES_DB: catalog
+      POSTGRES_USER: catalog
+      POSTGRES_PASSWORD: ${CATALOG_DB_PASSWORD:?Copy .env.example to .env}
+    volumes:
+      - catalog_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U catalog -d catalog"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  order-test-db:
+    image: postgres:18.4
+    profiles: [test]
+    environment:
+      POSTGRES_DB: shop_test
+      POSTGRES_USER: shop
+      POSTGRES_PASSWORD: shop-local-only
+    ports:
+      - "127.0.0.1:${ORDER_TEST_DB_PORT:-15433}:5432"
+    tmpfs:
+      - /var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shop -d shop_test"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  catalog-test-db:
+    image: postgres:18.4
+    profiles: [test]
+    environment:
+      POSTGRES_DB: catalog_test
+      POSTGRES_USER: catalog
+      POSTGRES_PASSWORD: catalog-local-only
+    ports:
+      - "127.0.0.1:${CATALOG_TEST_DB_PORT:-15434}:5432"
+    tmpfs:
+      - /var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U catalog -d catalog_test"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  order_data:
+  catalog_data:

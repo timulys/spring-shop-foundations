@@ -44,6 +44,7 @@
 | 38강 · 서비스 분리 기준 | [lesson-38](lesson-38) | 상품·주문 데이터 책임, 묶음 조회 계약, 분리 비용 |
 | 39강 · 독립 상품 서비스 | [lesson-39](lesson-39) | 별도 Gradle 앱·DB·계정, 상품 묶음 조회, 재시작 격리 |
 | 40강 · HTTP 상품 묶음 조회 | [lesson-40](lesson-40) | 원격 상품 값, 응답 검사, 짧은 쓰기 트랜잭션, V8 전환 |
+| 41강 · 프록시 경로 통합 | [lesson-41](lesson-41) | 상품·주문 직접 경로, 내부 API 차단, 세션 유지 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
@@ -67,4 +68,4 @@ JDK 21을 설치하고 원하는 강의 폴더의 build.gradle을 IntelliJ에서
 
 37강은 `docker compose up -d --build --wait`로 서비스 준비 완료까지 기다립니다. 상태 API는 컨테이너 내부에서 확인합니다.
 
-39강부터 두 서비스 폴더를 각각 Gradle 프로젝트로 엽니다. Compose 명령은 `lesson-39` 루트에서 실행합니다. 상세 명령은 해당 강의 README에 있습니다.
+39강부터 두 서비스 폴더를 각각 Gradle 프로젝트로 엽니다. Compose 명령은 선택한 강의 폴더의 루트에서 실행합니다. 상세 명령은 해당 강의 README에 있습니다.
