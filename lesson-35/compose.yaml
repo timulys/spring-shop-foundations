@@ -1,0 +1,58 @@
+name: spring-shop-lesson35
+
+services:
+  web:
+    image: spring-shop-web:lesson35
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    ports:
+      - "127.0.0.1:${WEB_PORT:-8080}:80"
+    depends_on:
+      app:
+        condition: service_started
+
+  app:
+    image: spring-shop:lesson35
+    build: .
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/shop
+      DB_USER: shop
+      DB_PASSWORD: shop-local-only
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:18.4
+    environment:
+      POSTGRES_DB: shop
+      POSTGRES_USER: shop
+      POSTGRES_PASSWORD: shop-local-only
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shop -d shop"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  test-db:
+    image: postgres:18.4
+    profiles: [test]
+    environment:
+      POSTGRES_DB: shop_test
+      POSTGRES_USER: shop
+      POSTGRES_PASSWORD: shop-local-only
+    ports:
+      - "127.0.0.1:${TEST_POSTGRES_PORT:-15433}:5432"
+    tmpfs:
+      - /var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shop -d shop_test"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  postgres_data:

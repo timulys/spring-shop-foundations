@@ -38,6 +38,7 @@
 | 32강 · 세션 로그인과 로그아웃 | [lesson-32](lesson-32) | 인증 상태 유지·로그아웃·CSRF 전달·401과 403 |
 | 33강 · 회원별 장바구니와 주문 | [lesson-33](lesson-33) | 회원별 조회·변경 범위·다른 회원 주문 404·CSRF 거부 |
 | 34강 · 애플리케이션 이미지 | [lesson-34](lesson-34) | JAR·컨테이너 같은 응답·다단계 빌드·이미지 버전 비교 |
+| 35강 · Compose와 같은 출처 프록시 | [lesson-35](lesson-35) | NGINX·앱·DB 연결·세션과 CSRF·주소 변경 후 재연결 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
@@ -54,3 +55,5 @@ JDK 21을 설치하고 원하는 강의 폴더의 build.gradle을 IntelliJ에서
 23강부터 요청 함수의 JavaScript 테스트도 제공합니다. Node.js를 설치한 환경에서 `npm run test:ui`로 실행합니다. 브라우저에서 상점을 사용하는 데는 별도 Node 실행 과정이 없습니다.
 
 24강부터 서버 코드와 테스트를 기능별 패키지로 정리합니다. 이전 강의의 코드는 해당 강의에서 설명한 구조를 유지합니다.
+
+35강부터 전체 상점은 `docker compose up -d --build`로 실행합니다. 기본 주소는 127.0.0.1:8080이며 호스트에서 IDE를 사용할 때의 별도 DB 포트 설정은 각 강의 README에 있습니다.
