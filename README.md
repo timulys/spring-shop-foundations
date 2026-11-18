@@ -37,6 +37,7 @@
 | 31강 · 비밀번호 해시와 회원가입 | [lesson-31](lesson-31) | BCrypt 대조·UTF-8 경계·가입 화면·동시 중복 거부 |
 | 32강 · 세션 로그인과 로그아웃 | [lesson-32](lesson-32) | 인증 상태 유지·로그아웃·CSRF 전달·401과 403 |
 | 33강 · 회원별 장바구니와 주문 | [lesson-33](lesson-33) | 회원별 조회·변경 범위·다른 회원 주문 404·CSRF 거부 |
+| 34강 · 애플리케이션 이미지 | [lesson-34](lesson-34) | JAR·컨테이너 같은 응답·다단계 빌드·이미지 버전 비교 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
