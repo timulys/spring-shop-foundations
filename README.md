@@ -40,6 +40,7 @@
 | 34강 · 애플리케이션 이미지 | [lesson-34](lesson-34) | JAR·컨테이너 같은 응답·다단계 빌드·이미지 버전 비교 |
 | 35강 · Compose와 같은 출처 프록시 | [lesson-35](lesson-35) | NGINX·앱·DB 연결·세션과 CSRF·주소 변경 후 재연결 |
 | 36강 · 설정·볼륨·마이그레이션 | [lesson-36](lesson-36) | 기존 주문 보존·취소 시각 추가·V7 한 번 적용·새 DB와 스키마 비교 |
+| 37강 · 상태 검사와 장애 복구 | [lesson-37](lesson-37) | readiness·liveness·DB/앱 중단·복구·준비 상태 대기 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
@@ -60,3 +61,5 @@ JDK 21을 설치하고 원하는 강의 폴더의 build.gradle을 IntelliJ에서
 35강부터 전체 상점은 `docker compose up -d --build`로 실행합니다. 기본 주소는 127.0.0.1:8080이며 호스트에서 IDE를 사용할 때의 별도 DB 포트 설정은 각 강의 README에 있습니다.
 
 36강부터 Compose를 실행하기 전에 `.env.example`을 `.env`로 복사합니다. 기존 DB 갱신과 새 DB 비교 절차는 36강 README에 있습니다.
+
+37강은 `docker compose up -d --build --wait`로 서비스 준비 완료까지 기다립니다. 상태 API는 컨테이너 내부에서 확인합니다.
