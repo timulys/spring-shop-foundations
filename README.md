@@ -43,6 +43,7 @@
 | 37강 · 상태 검사와 장애 복구 | [lesson-37](lesson-37) | readiness·liveness·DB/앱 중단·복구·준비 상태 대기 |
 | 38강 · 서비스 분리 기준 | [lesson-38](lesson-38) | 상품·주문 데이터 책임, 묶음 조회 계약, 분리 비용 |
 | 39강 · 독립 상품 서비스 | [lesson-39](lesson-39) | 별도 Gradle 앱·DB·계정, 상품 묶음 조회, 재시작 격리 |
+| 40강 · HTTP 상품 묶음 조회 | [lesson-40](lesson-40) | 원격 상품 값, 응답 검사, 짧은 쓰기 트랜잭션, V8 전환 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
