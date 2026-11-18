@@ -1,0 +1,132 @@
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { ApiError, RequestError, requestJson, requestErrorMessage } from "../../main/resources/static/api.js";
+
+async function withFetch(fake, run) {
+  const original = globalThis.fetch;
+  globalThis.fetch = fake;
+  try { await run(); } finally { globalThis.fetch = original; }
+}
+
+test("성공 응답과 JSON 요청 본문을 전달한다", async () => {
+  await withFetch(async (path, options) => {
+    if (path === "/api/csrf") return new Response(JSON.stringify({headerName:"X-CSRF-TOKEN",token:"test-token"}));
+    assert.equal(options.headers["X-CSRF-TOKEN"], "test-token");
+    assert.equal(path, "/api/cart/items/K100");
+    assert.equal(options.method, "PATCH");
+    assert.deepEqual(JSON.parse(options.body), { quantity: 2 });
+    assert.ok(options.signal instanceof AbortSignal);
+    return new Response(JSON.stringify({ quantity: 2 }));
+  }, async () => assert.deepEqual(await requestJson("/api/cart/items/K100", {
+    method: "PATCH", body: { quantity: 2 }
+  }), { quantity: 2 }));
+});
+
+test("400 응답의 상태와 필드 오류를 보존한다", async () => {
+  await withFetch(async () => new Response(JSON.stringify({
+    message: "수량 범위 오류", code: "VALIDATION_ERROR", fieldErrors: [{ field: "quantity" }]
+  }), { status: 400 }), async () => {
+    await assert.rejects(requestJson("/api/cart"), error => {
+      assert.ok(error instanceof ApiError);
+      assert.equal(error.status, 400);
+      assert.equal(error.fieldErrors[0].field, "quantity");
+      return true;
+    });
+  });
+});
+
+test("통신 실패를 성공으로 바꾸거나 자동 재요청하지 않는다", async () => {
+  let calls = 0;
+  await withFetch(async () => { calls++; throw new TypeError("Failed to fetch"); }, async () => {
+    await assert.rejects(requestJson("/api/orders", { method: "POST" }),
+      error => error instanceof RequestError && error.code === "UNCONFIRMED");
+  });
+  assert.equal(calls, 1);
+});
+
+test("제한 시간 뒤 대기를 중단하고 TIMEOUT을 전달한다", async () => {
+  let signal;
+  await withFetch((path, options) => new Promise((resolve, reject) => {
+    signal = options.signal;
+    signal.addEventListener("abort", () => reject(new DOMException("Aborted", "AbortError")));
+  }), async () => await assert.rejects(requestJson("/api/cart", { timeoutMs: 20 }),
+    error => error instanceof RequestError && error.code === "TIMEOUT"));
+  assert.equal(signal.aborted, true);
+});
+
+test("204 응답은 본문을 읽지 않고 null을 반환한다", async () => {
+  await withFetch(async () => new Response(null, { status: 204 }),
+    async () => assert.equal(await requestJson("/api/cart"), null));
+});
+
+test("성공 상태라도 잘못된 JSON은 미확인 응답으로 처리한다", async () => {
+  await withFetch(async () => new Response("broken"), async () => {
+    await assert.rejects(requestJson("/api/cart"),
+      error => error instanceof RequestError && error.code === "UNCONFIRMED");
+  });
+});
+
+
+test("인증 요청 전 토큰을 새로 받고 폼 형식으로 비밀번호를 보낸다", async () => {
+  let calls=0;
+  await withFetch(async (path,options) => {
+    calls++;
+    if(path==="/api/csrf") return new Response(JSON.stringify({headerName:"X-CSRF-TOKEN",token:"fresh"}));
+    assert.equal(path,"/login");
+    assert.equal(options.headers["X-CSRF-TOKEN"],"fresh");
+    assert.equal(options.headers["Content-Type"],"application/x-www-form-urlencoded");
+    assert.equal(new URLSearchParams(options.body).get("password")," space & plus+ ");
+    return new Response(null,{status:204});
+  },async()=>assert.equal(await requestJson("/login",{method:"POST",form:true,body:{username:"tim_01",password:" space & plus+ "}}),null));
+  assert.equal(calls,2);
+});
+test("토큰을 받지 못하면 상태 변경 요청을 보내지 않는다", async () => {
+  let calls=0;
+  await withFetch(async(path)=>{calls++;assert.equal(path,"/api/csrf");return new Response("{}",{status:503});},
+    async()=>assert.rejects(requestJson("/logout",{method:"POST"}),error=>error instanceof ApiError && error.status===503));
+  assert.equal(calls,1);
+});
+
+test("요청 키와 장바구니 버전을 CSRF 토큰과 함께 보낸다", async () => {
+  await withFetch(async (path, options) => {
+    if (path === "/api/csrf") return new Response(JSON.stringify({headerName:"X-CSRF-TOKEN",token:"fresh"}));
+    assert.equal(options.headers["Idempotency-Key"], "same-order-key-1234");
+    assert.equal(options.headers["X-Cart-Revision"], "7");
+    assert.equal(options.headers["X-CSRF-TOKEN"], "fresh");
+    return new Response("{}");
+  }, async () => requestJson("/api/orders", { method: "POST", body: {},
+    headers: { "Idempotency-Key": "same-order-key-1234", "X-Cart-Revision": "7" } }));
+});
+
+test("오류 본문과 응답 헤더의 요청 ID를 오류 안내에 보존한다", async () => {
+  await withFetch(async (path, options) => {
+    assert.match(options.headers["X-Request-Id"], /^[A-Za-z0-9_-]{8,64}$/);
+    return new Response(JSON.stringify({code:"CATALOG_UNAVAILABLE",message:"상품 조회 실패"}),
+      { status:503, headers:{"X-Request-Id":"trace-order-0001"} });
+  }, async () => assert.rejects(requestJson("/api/orders/preview"), error => {
+    assert.equal(error.requestId,"trace-order-0001");
+    assert.match(requestErrorMessage(error,"다시 확인해 주세요."), /trace-order-0001/); return true;
+  }));
+});
+test("프록시의 HTML 502 응답에도 상태와 요청 ID를 표시한다", async () => {
+  await withFetch(async () => new Response("<html>Bad gateway</html>",
+    {status:502,headers:{"X-Request-Id":"trace-proxy-0002"}}),
+    async () => assert.rejects(requestJson("/api/products"), error => {
+      assert.ok(error instanceof ApiError); assert.equal(error.status,502);
+      assert.equal(error.requestId,"trace-proxy-0002"); return true;
+    }));
+});
+test("CSRF 조회와 주문 요청은 서로 다른 ID를 사용한다", async () => {
+  const ids=[];
+  await withFetch(async (path,options) => {
+    ids.push(options.headers["X-Request-Id"]);
+    return new Response(path==="/api/csrf" ? JSON.stringify({headerName:"X-CSRF-TOKEN",token:"fresh"}) : "{}");
+  }, async()=>requestJson("/api/orders",{method:"POST",body:{},headers:{"Idempotency-Key":"same-order-key-1234"}}));
+  assert.equal(ids.length,2); assert.notEqual(ids[0],ids[1]);
+});
+test("연결 실패에도 보낸 요청 ID를 보존하고 잘못된 응답 ID는 제외한다", async () => {
+  let sent;
+  await withFetch(async(path,options)=>{sent=options.headers["X-Request-Id"];throw new TypeError("network down");},
+    async()=>assert.rejects(requestJson("/api/cart"),error=>error.requestId===sent));
+  assert.equal(new ApiError(400,{requestId:"bad injected value"}).requestId,"");
+});
