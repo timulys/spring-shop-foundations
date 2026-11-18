@@ -1,0 +1,53 @@
+package study.shop.order.domain;
+
+import study.shop.common.money.Money;
+import study.shop.common.ApiException;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class OrderAmountsTest {
+    private ShopOrder one(long price) {
+        ShopOrder order = ShopOrder.draft();
+        order.addItem(new ProductSnapshot("TEST", "검증 상품", Money.ofWon(price)), 1);
+        order.confirm(new ThresholdFixedDiscountPolicy());
+        return order;
+    }
+
+    @Test
+    void appliesShippingBelowTheDiscountThreshold() {
+        ShopOrder order = one(49_999L);
+        assertEquals(0L, order.getDiscount());
+        assertEquals(3_000L, order.getShippingFee());
+        assertEquals(52_999L, order.getTotal());
+    }
+
+    @Test
+    void appliesDiscountAtTheExactThreshold() {
+        ShopOrder order = one(50_000L);
+        assertEquals(5_000L, order.getDiscount());
+        assertEquals(0L, order.getShippingFee());
+        assertEquals(45_000L, order.getTotal());
+    }
+
+    @Test
+    void keepsLargeAmountsInLongFields() {
+        ShopOrder order = ShopOrder.draft();
+        for (int i = 0; i < 100; i++) {
+            order.addItem(new ProductSnapshot("Q" + i, "검증 상품", Money.ofWon(1_000_000L)), 99);
+        }
+        order.confirm(new ThresholdFixedDiscountPolicy());
+        assertEquals(9_900_000_000L, order.getSubtotal());
+        assertEquals(9_899_995_000L, order.getTotal());
+    }
+
+    @Test
+    void protectsConfirmedAmountsAndTheItemList() {
+        ShopOrder order = one(30_000L);
+        assertThrows(ApiException.class, () -> order.confirm(new ThresholdFixedDiscountPolicy()));
+        assertThrows(ApiException.class, () ->
+                order.addItem(new ProductSnapshot("NEW", "새 상품", Money.ofWon(10_000L)), 1));
+        assertThrows(UnsupportedOperationException.class, () -> order.getItems().clear());
+        assertEquals(33_000L, order.getTotal());
+    }
+}

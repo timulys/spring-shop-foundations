@@ -35,6 +35,7 @@
 | 29강 · 리팩터링 전후 비교 | [lesson-29](lesson-29) | 같은 주문·취소 결과 보존·10% 할인 정책 과제 |
 | 30강 · 회원 모델과 가입 입력 | [lesson-30](lesson-30) | 아이디 정규화·서로 다른 회원 번호·DB 중복 거부 |
 | 31강 · 비밀번호 해시와 회원가입 | [lesson-31](lesson-31) | BCrypt 대조·UTF-8 경계·가입 화면·동시 중복 거부 |
+| 32강 · 세션 로그인과 로그아웃 | [lesson-32](lesson-32) | 인증 상태 유지·로그아웃·CSRF 전달·401과 403 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
