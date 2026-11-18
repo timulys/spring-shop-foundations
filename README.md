@@ -34,6 +34,7 @@
 | 28강 · 상품 조회 계약 | [lesson-28](lesson-28) | DB·가짜 구현 교체·같은 70000원 주문·없는 상품 거부 |
 | 29강 · 리팩터링 전후 비교 | [lesson-29](lesson-29) | 같은 주문·취소 결과 보존·10% 할인 정책 과제 |
 | 30강 · 회원 모델과 가입 입력 | [lesson-30](lesson-30) | 아이디 정규화·서로 다른 회원 번호·DB 중복 거부 |
+| 31강 · 비밀번호 해시와 회원가입 | [lesson-31](lesson-31) | BCrypt 대조·UTF-8 경계·가입 화면·동시 중복 거부 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
