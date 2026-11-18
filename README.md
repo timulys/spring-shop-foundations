@@ -42,6 +42,7 @@
 | 36강 · 설정·볼륨·마이그레이션 | [lesson-36](lesson-36) | 기존 주문 보존·취소 시각 추가·V7 한 번 적용·새 DB와 스키마 비교 |
 | 37강 · 상태 검사와 장애 복구 | [lesson-37](lesson-37) | readiness·liveness·DB/앱 중단·복구·준비 상태 대기 |
 | 38강 · 서비스 분리 기준 | [lesson-38](lesson-38) | 상품·주문 데이터 책임, 묶음 조회 계약, 분리 비용 |
+| 39강 · 독립 상품 서비스 | [lesson-39](lesson-39) | 별도 Gradle 앱·DB·계정, 상품 묶음 조회, 재시작 격리 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 
@@ -64,3 +65,5 @@ JDK 21을 설치하고 원하는 강의 폴더의 build.gradle을 IntelliJ에서
 36강부터 Compose를 실행하기 전에 `.env.example`을 `.env`로 복사합니다. 기존 DB 갱신과 새 DB 비교 절차는 36강 README에 있습니다.
 
 37강은 `docker compose up -d --build --wait`로 서비스 준비 완료까지 기다립니다. 상태 API는 컨테이너 내부에서 확인합니다.
+
+39강부터 두 서비스 폴더를 각각 Gradle 프로젝트로 엽니다. Compose 명령은 `lesson-39` 루트에서 실행합니다. 상세 명령은 해당 강의 README에 있습니다.

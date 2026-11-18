@@ -1,0 +1,7 @@
+services:
+  order-db:
+    ports:
+      - "127.0.0.1:${ORDER_DB_PORT:-15432}:5432"
+  catalog-db:
+    ports:
+      - "127.0.0.1:${CATALOG_DB_PORT:-15435}:5432"
