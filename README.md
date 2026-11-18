@@ -41,6 +41,7 @@
 | 35강 · Compose와 같은 출처 프록시 | [lesson-35](lesson-35) | NGINX·앱·DB 연결·세션과 CSRF·주소 변경 후 재연결 |
 | 36강 · 설정·볼륨·마이그레이션 | [lesson-36](lesson-36) | 기존 주문 보존·취소 시각 추가·V7 한 번 적용·새 DB와 스키마 비교 |
 | 37강 · 상태 검사와 장애 복구 | [lesson-37](lesson-37) | readiness·liveness·DB/앱 중단·복구·준비 상태 대기 |
+| 38강 · 서비스 분리 기준 | [lesson-38](lesson-38) | 상품·주문 데이터 책임, 묶음 조회 계약, 분리 비용 |
 
 [전체 코드 ZIP 다운로드](https://github.com/timulys/spring-shop-foundations/archive/refs/heads/main.zip)
 

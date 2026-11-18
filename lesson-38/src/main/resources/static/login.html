@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>로그인 · 작업실 상점</title>
+  <link rel="stylesheet" href="/shop.css"><link rel="stylesheet" href="/member.css">
+  <script type="module" src="/login.js"></script>
+</head>
+<body>
+  <header class="site-header"><a class="brand" href="/">작업실 <span>상점</span></a><a href="/signup.html">회원가입</a></header>
+  <main class="member-main">
+    <p class="eyebrow">나의 작업실 계정</p><h1>로그인</h1>
+    <form id="login-form" class="member-form">
+      <label>로그인 아이디<input name="username" autocomplete="username" required maxlength="30"></label>
+      <label>비밀번호<input name="password" type="password" autocomplete="current-password" required maxlength="64"></label>
+      <button class="primary-button" type="submit">로그인</button>
+    </form>
+    <p id="login-status" role="status" aria-live="polite"></p>
+    <section id="session-panel" hidden><p id="member-info"></p><button id="logout" type="button">로그아웃</button><p><a href="/">상점으로 이동</a></p></section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,86 @@
+{
+  "contractVersion": 1,
+  "implementedFromLesson": 39,
+  "method": "POST",
+  "path": "/internal/products/lookup",
+  "examples": [
+    {
+      "name": "all-present",
+      "request": {
+        "productCodes": [
+          "P001",
+          "P002"
+        ]
+      },
+      "status": 200,
+      "response": {
+        "products": [
+          {
+            "code": "P001",
+            "name": "키보드",
+            "unitPrice": 30000
+          },
+          {
+            "code": "P002",
+            "name": "마우스",
+            "unitPrice": 15000
+          }
+        ]
+      }
+    },
+    {
+      "name": "one-missing",
+      "request": {
+        "productCodes": [
+          "P001",
+          "NO_SUCH_PRODUCT"
+        ]
+      },
+      "status": 200,
+      "response": {
+        "products": [
+          {
+            "code": "P001",
+            "name": "키보드",
+            "unitPrice": 30000
+          }
+        ]
+      },
+      "orderApiStatus": 404,
+      "orderApiCode": "PRODUCT_NOT_FOUND"
+    },
+    {
+      "name": "all-missing",
+      "request": {
+        "productCodes": [
+          "NO_SUCH_PRODUCT"
+        ]
+      },
+      "status": 200,
+      "response": {
+        "products": []
+      },
+      "orderApiStatus": 404,
+      "orderApiCode": "PRODUCT_NOT_FOUND"
+    },
+    {
+      "name": "normalized-duplicate",
+      "request": {
+        "productCodes": [
+          "P001",
+          " P001 "
+        ]
+      },
+      "status": 400,
+      "errorCode": "INVALID_PRODUCT_CODES"
+    },
+    {
+      "name": "empty-list",
+      "request": {
+        "productCodes": []
+      },
+      "status": 400,
+      "errorCode": "INVALID_PRODUCT_CODES"
+    }
+  ]
+}
