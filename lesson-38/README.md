@@ -25,6 +25,14 @@ docker compose --profile test up -d --wait test-db
 npm run test:ui
 ```
 
-Java 21, Spring Boot 4.1.2, Spring Security 7.1.2, PostgreSQL 18.4, Gradle Wrapper 8.14.3을 사용합니다. 호스트 검사에는 JDK 21과 Node.js가 필요합니다. IntelliJ의 Project SDK와 Gradle JVM을 21로 지정합니다. Windows에서는 `gradlew.bat`를 사용합니다. Java 검사 160개와 JavaScript 검사 10개를 제공합니다.
+Java 21, Spring Boot 4.1.2, Spring Security 7.1.2, PostgreSQL 18.4, Gradle Wrapper 8.14.3을 사용합니다. 호스트 검사에는 JDK 21과 Node.js가 필요합니다. VS Code에 Microsoft의 Extension Pack for Java를 설치하고 프로젝트 JDK와 Gradle 실행 JDK를 21로 지정합니다. Windows에서는 `gradlew.bat`를 사용합니다. Java 검사 160개와 JavaScript 검사 10개를 제공합니다.
 
 실습이 끝나면 `docker compose --profile test down`으로 컨테이너를 종료합니다. DB 볼륨은 유지됩니다. 내부 상태 검사는 [37강의 상태 검사 설명](docs/container-health.md)을 참고해 주세요.
+
+## VS Code 실습
+
+테스트 DB를 시작한 뒤 `OrderSnapshotTest.java`를 열고 명령 팔레트에서 **Test: Run Tests in Current File**을 실행합니다. 상품명과 가격을 바꾼 뒤 과거 주문을 다시 읽는 경우 등을 포함해 4개 테스트가 통과해야 합니다. [VS Code Java 테스트](https://code.visualstudio.com/docs/java/java-testing)
+
+영상에서는 `spring-shop-38-recording` 프로젝트, 웹 포트 18040, 테스트 DB 포트 15435를 사용합니다. 기본값을 바꾼 경우 `.env`의 `TEST_POSTGRES_PORT`와 Java 테스트의 `TEST_DB_URL`을 같은 포트로 맞춥니다. 예를 들어 `TEST_DB_URL=jdbc:postgresql://127.0.0.1:15435/shop_test ./gradlew test`로 검사할 수 있습니다. VS Code 테스트 실행 설정의 `env`에도 같은 `TEST_DB_URL`을 지정합니다. Compose 명령에는 동일한 프로젝트 이름을 사용합니다.
+
+이 강의에서 편집하는 상품 묶음 조회 요청은 계약 문서의 예시입니다. 실제 HTTP 경로는 39강에서 구현하며, 38강의 주문은 기존 로컬 상품 조회를 사용합니다.
