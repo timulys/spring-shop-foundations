@@ -78,6 +78,7 @@ class CatalogHttpTest {
         assertEquals(30000, products.get(0).get("unitPrice").asLong());
         assertEquals(3, products.get(0).size());
         assertEquals("P002", products.get(1).get("code").asText());
+        assertEquals(15000, products.get(1).get("unitPrice").asLong());
     }
 
     @Test

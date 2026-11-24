@@ -36,13 +36,15 @@ Invoke-RestMethod -Method Post -ContentType 'application/json' -Body '{"productC
 
 ## 독립 빌드와 검사
 
-Java 21, Spring Boot 4.1.2, PostgreSQL 18.4, Gradle Wrapper 8.14.3을 사용합니다. 주문 앱의 Spring Security는 7.1.2입니다. 호스트 검사에는 JDK 21과 Node.js가 필요합니다. IntelliJ에서는 각 서비스 폴더를 별도 Gradle 프로젝트로 열고 Project SDK와 Gradle JVM을 21로 지정합니다.
+Java 21, Spring Boot 4.1.2, PostgreSQL 18.4, Gradle Wrapper 8.14.3을 사용합니다. 주문 앱의 Spring Security는 7.1.2입니다. 호스트 검사에는 JDK 21과 Node.js가 필요합니다. VS Code에 Extension Pack for Java를 설치하고 각 서비스 폴더를 열어 Gradle 프로젝트로 가져옵니다. Java 실행 환경과 Gradle JVM을 JDK 21로 지정합니다. 루트 폴더를 열면 두 Gradle 프로젝트를 함께 확인할 수 있습니다.
 
 루트에서 테스트 DB를 시작합니다.
 
 ```bash
 docker compose --profile test up -d --wait order-test-db catalog-test-db
 ```
+
+VS Code에서 `CatalogHttpTest.java`를 열고 명령 팔레트의 `Test: Run Tests in Current File`을 실행하면 HTTP 검사 21개가 실행됩니다. 이 파일에는 정상 응답, 입력 오류, 누락 상품, 길이 경계와 상태 응답 검사가 있습니다. 기본 테스트 DB 포트는 주문 15433, 상품 15434입니다. 포트를 바꿨다면 해당 서비스 테스트의 `TEST_DB_URL`도 같은 값으로 지정합니다. Compose의 `.env`는 VS Code 테스트 실행에 자동 적용되지 않습니다.
 
 `catalog-service` 폴더에서는 `./gradlew test bootJar`를 실행합니다. 상품 앱의 검사 23개가 상품 검색·묶음 조회·누락·중복·길이·자료형·저장소 동작을 다룹니다. `order-service` 폴더에서는 `./gradlew test bootJar`와 `npm run test:ui`를 실행합니다. 주문 앱의 Java 검사 160개, JavaScript 검사 10개가 있습니다. Windows에서는 `gradlew.bat`를 사용합니다.
 
@@ -54,7 +56,7 @@ docker compose --profile test up -d --wait order-test-db catalog-test-db
 docker compose up -d --build --wait catalog
 ```
 
-IntelliJ에서 실행할 때는 먼저 앱 컨테이너를 종료하고 호스트용 DB 포트를 연결합니다.
+VS Code에서 실행할 때는 먼저 앱 컨테이너를 종료하고 호스트용 DB 포트를 연결합니다.
 
 ```bash
 docker compose stop catalog
