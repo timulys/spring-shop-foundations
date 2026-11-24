@@ -4,7 +4,9 @@
 
 ## Compose가 읽는 값과 앱이 받는 값
 
-Compose는 `.env`나 셸 환경의 값을 읽어 `${DB_PASSWORD}` 같은 자리를 채웁니다. `environment`에 지정한 값은 해당 컨테이너의 환경변수로 전달됩니다. 이 예제에서 `.env` 파일을 읽는 도구는 Compose입니다. 호스트의 IntelliJ에서 실행할 때는 실행 설정의 환경변수에 필요한 값을 지정합니다. [Compose 환경변수 치환](https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/)
+Compose는 `.env`나 셸 환경의 값을 읽어 `${DB_PASSWORD}` 같은 자리를 채웁니다. `environment`에 지정한 값은 해당 컨테이너의 환경변수로 전달됩니다. 이 예제에서 `.env` 파일을 읽는 도구는 Compose입니다. 호스트의 VS Code에서 실행할 때는 `.vscode/launch.json`의 `env`에 필요한 값을 지정합니다. [Compose 환경변수 치환](https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/)
+
+`docker compose restart`는 기존 컨테이너의 환경변수를 유지합니다. 바꾼 환경변수를 적용하려면 새 설정으로 컨테이너를 재생성합니다. [Compose 재시작](https://docs.docker.com/reference/cli/docker/compose/restart/)
 
 `DB_PASSWORD`는 앱의 접속 비밀번호와 PostgreSQL 초기 비밀번호에 같은 값으로 전달합니다. `POSTGRES_PASSWORD`는 비어 있는 데이터 디렉터리에 DB를 처음 만들 때 적용됩니다. 기존 DB의 사용자 비밀번호를 바꾸려면 DB 사용자 변경 절차도 함께 필요합니다. 이 강의의 기존 DB 갱신 실습은 비밀번호를 유지합니다. [PostgreSQL 공식 이미지](https://hub.docker.com/_/postgres)
 
