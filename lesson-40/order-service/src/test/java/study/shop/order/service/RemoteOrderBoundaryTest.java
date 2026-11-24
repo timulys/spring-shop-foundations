@@ -56,6 +56,7 @@ class RemoteOrderBoundaryTest extends study.shop.common.CatalogServerTestBase {
         CATALOG.products.remove("P002");
         var error = assertThrows(ApiException.class, () -> orders.place(100001L, request));
         assertEquals("PRODUCT_NOT_FOUND", error.code());
+        assertEquals(404, error.status().value());
         assertEquals(0, jdbc.queryForObject("select count(*) from orders", Integer.class));
         assertEquals(2, store.read(100001L).items().size());
     }

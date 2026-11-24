@@ -29,7 +29,7 @@ docker compose --profile test up -d --wait order-test-db catalog-test-db
 
 Windows에서는 `gradlew.bat`를 사용합니다. 주문 앱 테스트는 테스트 코드에 포함된 로컬 HTTP 서버를 상품 서비스로 사용합니다. 이 서버로 누락·오류 응답·가격 변경·응답 지연을 재현합니다. 실행용 JAR에는 이 테스트 서버가 포함되지 않습니다.
 
-Java 21, Spring Boot 4.1.2, Spring Security 7.1.2, Spring Framework 7.0.10, PostgreSQL 18.4, Gradle Wrapper 8.14.3을 사용합니다. IntelliJ에서 각 서비스 폴더를 열고 Project SDK와 Gradle JVM을 21로 지정합니다. Docker 빌드 파일에는 Gradle 다운로드 캐시를 공유하는 준비 설정이 들어 있습니다. 동시 빌드가 같은 캐시를 수정하지 않도록 `sharing=locked`를 사용합니다.
+Java 21, Spring Boot 4.1.2, Spring Security 7.1.2, Spring Framework 7.0.10, PostgreSQL 18.4, Gradle Wrapper 8.14.3을 사용합니다. VS Code에서 루트 폴더를 열고 Extension Pack for Java를 설치한 뒤 Java 실행 환경과 Gradle JVM을 21로 지정합니다. 각 서비스의 테스트 파일에서 `Test: Run Tests in Current File` 명령을 실행할 수 있습니다. 주문 테스트 DB의 기본 호스트 포트는 15433, 상품 테스트 DB는 15434입니다. 포트를 바꿨다면 VS Code의 `java.test.config.env`에도 해당 서비스의 `TEST_DB_URL`을 지정합니다. `.env`의 값은 Java 테스트 실행기에 자동으로 전달되지 않습니다. Docker 빌드 파일에는 Gradle 다운로드 캐시를 공유하는 준비 설정이 들어 있습니다. 동시 빌드가 같은 캐시를 수정하지 않도록 `sharing=locked`를 사용합니다.
 
 ## IDE에서 주문 앱 실행하기
 
