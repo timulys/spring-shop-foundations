@@ -22,7 +22,11 @@ docker compose --profile test up -d --wait test-db
 npm run test:ui
 ```
 
-Java 테스트 160개, JavaScript 테스트 10개가 있습니다. IntelliJ의 Project SDK와 Gradle JVM은 21로 지정합니다. Windows에서는 `gradlew.bat`를 사용합니다. 호스트 IDE에서 앱을 실행하는 방법은 36강과 같이 `compose.dev.yaml`로 DB 포트를 연결하고 실행 환경변수를 지정하는 방식입니다.
+Java 테스트 160개, JavaScript 테스트 10개가 있습니다. VS Code에 Microsoft의 Extension Pack for Java를 설치하고 프로젝트 JDK와 Gradle 실행 JDK를 21로 지정합니다. Windows에서는 `gradlew.bat`를 사용합니다. 호스트 VS Code에서 앱을 실행하는 방법은 36강과 같이 `compose.dev.yaml`로 DB 포트를 연결하고 `.vscode/launch.json`의 `env`에 실행 환경변수를 지정하는 방식입니다.
+
+테스트 DB를 시작한 뒤 `HealthHttpTest.java`를 열고 명령 팔레트에서 **Test: Run Tests in Current File**을 실행합니다. 정상 상태의 liveness와 readiness를 검사하는 2개 테스트가 통과해야 합니다. [VS Code Java 테스트](https://code.visualstudio.com/docs/java/java-testing)
+
+영상에서는 다른 실습과 구분하려고 `spring-shop-37-recording` 프로젝트, 웹 포트 18038, 테스트 DB 포트 15434를 사용했습니다. 기본값을 바꾼 경우 `.env`의 `TEST_POSTGRES_PORT`와 Java 테스트의 `TEST_DB_URL`도 같은 포트로 맞춥니다. 예를 들어 `TEST_DB_URL=jdbc:postgresql://127.0.0.1:15434/shop_test ./gradlew test`로 검사합니다. 프로젝트 이름은 모든 Compose 명령에 동일하게 지정합니다.
 
 ## 내부 상태 확인
 
@@ -55,7 +59,7 @@ DB가 준비되면 앱이 연결을 다시 얻고 readiness가 200으로 회복�
 
 ```bash
 docker compose stop app
-# 이때 정적 화면은 200, 상품 API는 502 또는 504입니다.
+# 영상에서 정적 화면은 200, 상품 API는 502를 반환했습니다.
 docker compose start app
 ```
 
